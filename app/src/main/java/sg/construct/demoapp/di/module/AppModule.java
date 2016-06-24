@@ -2,6 +2,7 @@ package sg.construct.demoapp.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -19,6 +20,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import sg.construct.demoapp.BuildConfig;
+import sg.construct.demoapp.domain.interactor.DataService;
+import sg.construct.demoapp.domain.interactor.ImageService;
 import sg.construct.demoapp.domain.repo.AuthRepo;
 import sg.construct.demoapp.domain.repo.ProductRepo;
 
@@ -87,5 +90,23 @@ public class AppModule {
     @Singleton
     ProductRepo provideProductRepo(Retrofit retrofit) {
         return retrofit.create(ProductRepo.class);
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences(Context context) {
+        return context.getSharedPreferences("data", Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    DataService provideDataService(AuthRepo authRepo, ProductRepo productRepo, SharedPreferences preferences) {
+        return new DataService(authRepo, productRepo, preferences);
+    }
+
+    @Provides
+    @Singleton
+    ImageService provideImageService(Context context) {
+        return new ImageService(context);
     }
 }

@@ -1,5 +1,7 @@
 package sg.construct.demoapp;
 
+import android.content.Context;
+
 import sg.construct.demoapp.di.component.AppComponent;
 import sg.construct.demoapp.di.component.DaggerAppComponent;
 import sg.construct.demoapp.di.module.AppModule;
@@ -22,5 +24,9 @@ public class Application extends android.app.Application{
     private void initInjector() {
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this))
                 .build();
+    }
+
+    public static AppComponent getAppComponent(Context context) {
+        return ((Application)context.getApplicationContext()).mAppComponent;
     }
 }

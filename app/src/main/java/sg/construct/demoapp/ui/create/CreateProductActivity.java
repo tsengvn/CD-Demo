@@ -1,6 +1,6 @@
 package sg.construct.demoapp.ui.create;
 
-import sg.construct.demoapp.ui.BaseActivity;
+import sg.construct.demoapp.ui.base.BaseActivity;
 
 /**
  * Copyright (c) 2016, Posiba. All rights reserved.

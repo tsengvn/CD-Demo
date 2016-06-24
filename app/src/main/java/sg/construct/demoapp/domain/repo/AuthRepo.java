@@ -1,8 +1,10 @@
 package sg.construct.demoapp.domain.repo;
 
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 import rx.Observable;
 import sg.construct.demoapp.pojo.entity.AuthenticationEntity;
+import sg.construct.demoapp.pojo.entity.UserEntity;
 
 /**
  * Copyright (c) 2016, Posiba. All rights reserved.
@@ -12,5 +14,5 @@ import sg.construct.demoapp.pojo.entity.AuthenticationEntity;
  */
 public interface AuthRepo {
     @POST("auth")
-    Observable<AuthenticationEntity> getToken();
+    Observable<AuthenticationEntity> getToken(@Body UserEntity entity);
 }

@@ -3,6 +3,7 @@ package sg.construct.demoapp.domain.repo;
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -16,7 +17,7 @@ import sg.construct.demoapp.pojo.entity.ProductEntity;
  */
 public interface ProductRepo {
     @GET("product")
-    Observable<List<ProductEntity>> getProductList();
+    Observable<List<ProductEntity>> getProductList(@Header("Authorization") String token);
 
     @POST("product")
     Observable<ProductEntity> createProduct();

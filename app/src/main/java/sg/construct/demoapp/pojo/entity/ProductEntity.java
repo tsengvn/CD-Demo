@@ -1,7 +1,5 @@
 package sg.construct.demoapp.pojo.entity;
 
-import java.util.List;
-
 /**
  * Copyright (c) 2016, Posiba. All rights reserved.
  *
@@ -14,6 +12,10 @@ public class ProductEntity {
     public String description;
     public boolean isNew;
     public String excerpt;
-    public List<String> images;
+    public Images images;
 
+    public static class Images {
+        public String thumbnail;
+        public String full;
+    }
 }
