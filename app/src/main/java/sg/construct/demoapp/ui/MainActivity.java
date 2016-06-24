@@ -1,7 +1,9 @@
-package construct.sg.demoapp;
+package sg.construct.demoapp.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import sg.construct.demoapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

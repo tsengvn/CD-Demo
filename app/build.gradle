@@ -1,4 +1,16 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
+}
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
 
 android {
     compileSdkVersion 23
@@ -6,15 +18,22 @@ android {
 
     defaultConfig {
         applicationId "construct.sg.demoapp"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(ANDROID_BUILD_TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
     }
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "URL_ENDPOINT", URL_ENDPOINT
+        }
+
+        debug {
+            debuggable true
+            buildConfigField "String", "URL_ENDPOINT", URL_ENDPOINT
         }
     }
 }
@@ -22,5 +41,26 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
+
+    compile "com.squareup.retrofit2:retrofit:2.1.0"
+    compile "com.squareup.retrofit2:converter-gson:2.1.0"
+    compile "com.squareup.retrofit2:adapter-rxjava:2.1.0"
+    compile "com.squareup.okhttp3:logging-interceptor:3.3.1"
+    compile "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:support-annotations:${ANDROID_SUPPORT_VERSION}"
+    compile "com.android.support:percent:${ANDROID_SUPPORT_VERSION}"
+
+    compile "com.google.dagger:dagger:2.0.2"
+
+    apt "com.google.dagger:dagger-compiler:2.0.2"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    apt "com.google.auto.value:auto-value:1.2"
+    provided "com.google.auto.value:auto-value:1.2"
+
+    compile "com.jakewharton:butterknife:8.0.1"
+    apt "com.jakewharton:butterknife-compiler:8.0.1"
 }
