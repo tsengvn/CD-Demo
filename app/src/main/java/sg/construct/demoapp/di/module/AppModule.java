@@ -30,7 +30,7 @@ import sg.construct.demoapp.domain.repo.ProductRepo;
  */
 @Module
 public class AppModule {
-    private static final String API_VERSION = "v1";
+    private static final String API_VERSION = "api/v1";
     private final Application mApplication;
 
     public AppModule(Application application) {
@@ -59,8 +59,15 @@ public class AppModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(Context context, OkHttpClient okHttpClient) {
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+    Gson provideGson() {
+        return new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
+    }
+
+    @Provides
+    @Singleton
+    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         GsonConverterFactory factory = GsonConverterFactory.create(gson);
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.URL_ENDPOINT + "/" + API_VERSION + "/")
