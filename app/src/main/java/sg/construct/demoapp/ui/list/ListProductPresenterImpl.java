@@ -20,6 +20,8 @@ public class ListProductPresenterImpl implements ListProductPresenter {
     private final ListProductView mView;
     private final DataService mService;
 
+    private boolean mFirstRun = true;
+
     public ListProductPresenterImpl(ListProductView view, DataService service) {
         mView = view;
         mService = service;
@@ -27,7 +29,7 @@ public class ListProductPresenterImpl implements ListProductPresenter {
 
     @Override
     public void getData() {
-        mService.getListProduct()
+        mService.getListProduct(mFirstRun)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new DefaultSubscriber<List<ProductEntity>>() {
@@ -41,5 +43,6 @@ public class ListProductPresenterImpl implements ListProductPresenter {
                         mView.showError(errorRes);
                     }
                 });
+        mFirstRun = false;
     }
 }

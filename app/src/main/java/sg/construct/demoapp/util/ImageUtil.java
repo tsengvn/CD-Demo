@@ -73,7 +73,7 @@ public class ImageUtil {
 
         File mediaStorageDir = new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                ".temp"
+                "sg_demo"
         );
 
         if (!mediaStorageDir.exists()) {

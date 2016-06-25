@@ -13,6 +13,8 @@ public interface BaseView {
 
     void showError(@StringRes int stringRes);
 
+    void showLoading(@StringRes int stringRes);
+
     void showLoading();
 
     void hideLoading();

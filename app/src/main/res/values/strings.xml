@@ -11,4 +11,6 @@
     <string name="internet_connection">Please check your internet connection!</string>
     <string name="backend_issue">We have a problem with our backend, please try again later.</string>
     <string name="unknown_error">There is an error occurred, please try again later.</string>
+    <string name="continue_word">continue</string>
+    <string name="saving">Saving…</string>
 </resources>

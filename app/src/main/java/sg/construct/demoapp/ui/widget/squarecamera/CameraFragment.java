@@ -51,6 +51,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     private ImageParameters mImageParameters;
 
     private CameraOrientationListener mOrientationListener;
+    private ImageListener mImageListener;
 
     public static Fragment newInstance() {
         return new CameraFragment();
@@ -105,6 +106,10 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         outState.putString(CAMERA_FLASH_KEY, mFlashMode);
         outState.putParcelable(IMAGE_INFO, mImageParameters);
         super.onSaveInstanceState(outState);
+    }
+
+    public void setImageListener(ImageListener imageListener) {
+        mImageListener = imageListener;
     }
 
     private void getCamera(int cameraID) {
@@ -386,11 +391,14 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         int rotation = getPhotoRotation();
         setSafeToTakePhoto(true);
         Uri uri = savePicture(data, rotation);
-
-        Intent intent = new Intent();
-        intent.setData(uri);
-        getActivity().setResult(Activity.RESULT_OK, intent);
-        getActivity().finish();
+        if (mImageListener != null) {
+            mImageListener.onImageSaved(uri);
+        }
+        restartPreview();
+//        Intent intent = new Intent();
+//        intent.setData(uri);
+//        getActivity().setResult(Activity.RESULT_OK, intent);
+//        getActivity().finish();
     }
 
     private Uri savePicture(byte[] data, int rotation) {
@@ -478,5 +486,9 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
             rememberOrientation();
             return mRememberedNormalOrientation;
         }
+    }
+
+    public static interface ImageListener {
+        void onImageSaved(Uri uri);
     }
 }

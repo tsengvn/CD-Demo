@@ -26,6 +26,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView{
     }
 
     @Override
+    public void showLoading(@StringRes int stringRes) {
+        hideLoading();
+        mProgressDialog = ProgressDialog.show(this, "", getString(stringRes));
+    }
+
+    @Override
     public void showLoading() {
         hideLoading();
         mProgressDialog = ProgressDialog.show(this, "", "Loading");

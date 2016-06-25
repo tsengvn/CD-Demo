@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,14 +44,25 @@ public class DataService {
         mContext = context;
     }
 
-    public Observable<List<ProductEntity>> getListProduct() {
-        return getToken()
-                .flatMap(new Func1<String, Observable<List<ProductEntity>>>() {
-                    @Override
-                    public Observable<List<ProductEntity>> call(String token) {
-                        return mProductRepo.getProductList(token);
-                    }
-                });
+    public Observable<List<ProductEntity>> getListProduct(boolean refresh) {
+        if (refresh) {
+            return refreshToken()
+                    .flatMap(new Func1<String, Observable<List<ProductEntity>>>() {
+                        @Override
+                        public Observable<List<ProductEntity>> call(String token) {
+                            return mProductRepo.getProductList(token);
+                        }
+                    });
+        } else {
+            return getToken()
+                    .flatMap(new Func1<String, Observable<List<ProductEntity>>>() {
+                        @Override
+                        public Observable<List<ProductEntity>> call(String token) {
+                            return mProductRepo.getProductList(token);
+                        }
+                    });
+        }
+
     }
 
     private Observable<String> getToken() {
@@ -97,14 +107,15 @@ public class DataService {
 
                 String[] projection = new String[] {
                         MediaStore.Images.Media._ID,
-                        MediaStore.Images.Media.DATA
+                        MediaStore.Images.Media.DATA,
+                        MediaStore.Images.Media.DATE_TAKEN
                 };
 
                 Uri images = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
-                Cursor cur = activity.managedQuery(images, projection, null, null, null);
+                Cursor cur = activity.managedQuery(images, projection, null, null, MediaStore.Images.Media.DATE_TAKEN + " desc");
 
-                Log.i("ListingImages"," query count=" + cur.getCount());
+//                Log.i("ListingImages"," query count=" + cur.getCount());
 
                 if (cur.moveToFirst()) {
                     int dataColumn = cur.getColumnIndex(MediaStore.Images.Media.DATA);
@@ -112,7 +123,7 @@ public class DataService {
                     do {
                         String data = cur.getString(dataColumn);
                         results.add(Uri.fromFile(new File(data)));
-                        Log.i("ListingImages", " data=" + data);
+//                        Log.i("ListingImages", " data=" + data);
                     } while (cur.moveToNext());
 
                 }
@@ -132,6 +143,9 @@ public class DataService {
                     public Observable<ProductEntity> call(String token) {
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
+                            if (bitmap.getWidth() != bitmap.getHeight()) {
+                                bitmap = ImageUtil.cropSquare(bitmap);
+                            }
                             String data = ImageUtil.convertBitmapToString(bitmap);
                             bitmap.recycle();
                             NewProductEntity entity = new NewProductEntity(title, description, data);

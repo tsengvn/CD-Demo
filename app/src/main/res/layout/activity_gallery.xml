@@ -10,7 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
-            android:layout_margin="12dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
             android:id="@+id/pnlCamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -24,6 +27,10 @@
                 android:layout_height="wrap_content">
 
                 <sg.construct.demoapp.ui.widget.SquareImageView
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -51,12 +58,36 @@
                     android:layout_marginBottom="8dp"
                     android:text="@string/library"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:id="@+id/recyclerView"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent">
+
+
+                    <Button
+                        android:id="@+id/btnContinue"
+                        android:enabled="false"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/continue_selector"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/continue_word"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_above="@id/btnContinue"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_above="@id/btnContinue"
+                        android:background="@drawable/bg_gradient_black"/>
+                </RelativeLayout>
+
             </LinearLayout>
         </LinearLayout>
 

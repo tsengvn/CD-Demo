@@ -32,7 +32,7 @@ import sg.construct.demoapp.ui.widget.squarecamera.CameraFragment;
  * @author Hien Ngo
  * @since 6/24/16
  */
-public class GalleryActivity extends BaseActivity implements GalleryView{
+public class GalleryActivity extends BaseActivity implements GalleryView, CameraFragment.ImageListener {
     public static void open(Activity activity, int reqCode) {
         Intent intent = new Intent(activity, GalleryActivity.class);
         activity.startActivityForResult(intent, reqCode);
@@ -49,6 +49,7 @@ public class GalleryActivity extends BaseActivity implements GalleryView{
 
     private GalleryPresenter mPresenter;
     private List<Uri> mImages = new ArrayList<>();
+    private int mSelectedPos = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,31 +70,67 @@ public class GalleryActivity extends BaseActivity implements GalleryView{
 
     @OnClick(R.id.btnCapture)
     public void captureCamera() {
+        showLoading(R.string.saving);
         CameraFragment cameraFragment = (CameraFragment) getSupportFragmentManager()
                 .findFragmentByTag(CameraFragment.TAG);
         cameraFragment.takePicture();
     }
 
-    private void createCameraFragment() {
-        getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.pnlCamera, CameraFragment.newInstance(), CameraFragment.TAG)
-                    .commit();
-    }
-
     @Override
     public void onReceiveData(List<Uri> images) {
-        if (mRecyclerView.getAdapter() == null) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-            mRecyclerView.setAdapter(new PhotoAdapter());
-        }
+        createAdapter();
         mImages.clear();
         mImages.addAll(images);
         mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
+    @Override
+    public void onImageSaved(Uri uri) {
+        hideLoading();
+        mImages.add(0, uri);
+        createAdapter();
+        mRecyclerView.getAdapter().notifyItemInserted(0);
+        mRecyclerView.scrollToPosition(0);
+        fixSelectedPosition();
+    }
+
+    @OnClick(R.id.btnContinue)
+    public void onContinue() {
+        if (mSelectedPos == -1) return;
+
+        Intent intent = new Intent();
+        intent.setData(mImages.get(mSelectedPos));
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    void enableButton() {
+        ButterKnife.findById(this, R.id.btnContinue).setEnabled(true);
+    }
+
+    private void fixSelectedPosition() {
+        if (mSelectedPos != -1) {
+            mSelectedPos++;
+        }
+    }
+
+    private void createAdapter() {
+        if (mRecyclerView.getAdapter() == null) {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+            mRecyclerView.setAdapter(new PhotoAdapter());
+        }
+    }
+
+    private void createCameraFragment() {
+        CameraFragment fragment = (CameraFragment) CameraFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.pnlCamera, fragment, CameraFragment.TAG)
+                .commit();
+        fragment.setImageListener(this);
+    }
+
     class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
-        private int mSelectedPos = -1;
 
         @Override
         public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -111,6 +148,7 @@ public class GalleryActivity extends BaseActivity implements GalleryView{
                 public void onClick(View v) {
                     mSelectedPos = holder.getAdapterPosition();
                     notifyDataSetChanged();
+                    enableButton();
                 }
             });
         }
