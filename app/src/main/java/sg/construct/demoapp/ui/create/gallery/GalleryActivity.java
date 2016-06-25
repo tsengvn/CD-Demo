@@ -116,8 +116,15 @@ public class GalleryActivity extends BaseActivity implements GalleryView, Camera
 
     private void createAdapter() {
         if (mRecyclerView.getAdapter() == null) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+            final GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
+            mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setAdapter(new PhotoAdapter());
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    layoutManager.findLastCompletelyVisibleItemPosition();
+                }
+            });
         }
     }
 

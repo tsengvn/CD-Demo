@@ -20,10 +20,19 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <View
+            android:id="@+id/footer"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_gradient"/>
+
+        <View
+            android:id="@+id/header"
+            android:alpha="0"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_gradient_inverse"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btnAdd"
@@ -32,7 +41,6 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
-            app:layout_behavior="sg.construct.demoapp.ui.widget.ScrollingFABBehavior"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_anchor="@id/recyclerView"
             app:fabSize="normal"/>

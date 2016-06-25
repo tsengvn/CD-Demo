@@ -15,6 +15,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sg.construct.demoapp.Application;
@@ -39,6 +40,9 @@ public class ListProductActivity extends BaseActivity implements ListProductView
 
     @Inject
     ImageService mImageService;
+
+    @BindViews({R.id.header, R.id.footer})
+    View[] mShadowViews;
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -66,8 +70,25 @@ public class ListProductActivity extends BaseActivity implements ListProductView
     public void onReceiveData(List<ProductEntity> entities) {
         if (mRecyclerView.getAdapter() == null) {
             mEntities = new ArrayList<>();
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setAdapter(new Adapter());
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    if (layoutManager.findFirstVisibleItemPosition() != 0) {
+                        mShadowViews[0].animate().alpha(1f);
+                    } else {
+                        mShadowViews[0].animate().alpha(0f);
+                    }
+
+                    if (layoutManager.findLastVisibleItemPosition() != recyclerView.getAdapter().getItemCount() -1) {
+                        mShadowViews[1].animate().alpha(1f);
+                    } else {
+                        mShadowViews[1].animate().alpha(0f);
+                    }
+                }
+            });
         }
 
         mEntities.clear();
@@ -100,6 +121,10 @@ public class ListProductActivity extends BaseActivity implements ListProductView
                     ProductDetailActivity.open(ListProductActivity.this, entity.id);
                 }
             });
+
+            if (position == mEntities.size()-1) {
+
+            }
         }
 
         @Override
