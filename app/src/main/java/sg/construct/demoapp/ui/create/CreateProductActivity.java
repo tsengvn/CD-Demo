@@ -91,6 +91,7 @@ public class CreateProductActivity extends BaseActivity implements CreateProduct
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.error));
         builder.setMessage(error);
+        builder.setPositiveButton(android.R.string.ok, null);
         builder.show();
     }
 

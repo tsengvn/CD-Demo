@@ -1,6 +1,7 @@
 package sg.construct.demoapp.ui.base;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
@@ -58,6 +59,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView{
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.error)
                 .setMessage(stringRes)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
                 .show();
     }
 

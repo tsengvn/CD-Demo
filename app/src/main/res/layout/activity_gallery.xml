@@ -56,6 +56,15 @@
                 <android.support.design.widget.CoordinatorLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:paddingBottom="48dp"
+                        android:clipToPadding="false"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
                     <LinearLayout
                         app:layout_behavior="sg.construct.demoapp.ui.widget.BottomScrollBehavior"
@@ -67,7 +76,6 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
-                            android:layout_above="@id/btnContinue"
                             android:background="@drawable/bg_gradient_black"/>
 
                         <Button
@@ -80,15 +88,7 @@
                             android:text="@string/continue_word"/>
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:paddingBottom="48dp"
-                        android:clipToPadding="false"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+
 
 
                 </android.support.design.widget.CoordinatorLayout>
