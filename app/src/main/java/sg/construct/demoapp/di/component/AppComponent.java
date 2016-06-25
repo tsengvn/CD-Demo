@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import sg.construct.demoapp.di.module.AppModule;
+import sg.construct.demoapp.ui.detail.ProductDetailActivity;
 import sg.construct.demoapp.ui.list.ListProductActivity;
 
 /**
@@ -16,4 +17,6 @@ import sg.construct.demoapp.ui.list.ListProductActivity;
 @Component(modules = AppModule.class)
 public interface AppComponent {
     void inject(ListProductActivity listProductActivity);
+
+    void inject(ProductDetailActivity productDetailActivity);
 }

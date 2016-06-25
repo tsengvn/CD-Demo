@@ -64,4 +64,13 @@ public class DataService {
                     }
                 });
     }
+
+    public Observable<ProductEntity> getProduct(final long id) {
+        return getToken().flatMap(new Func1<String, Observable<ProductEntity>>() {
+            @Override
+            public Observable<ProductEntity> call(String token) {
+                return mProductRepo.getProduct(token, id);
+            }
+        });
+    }
 }

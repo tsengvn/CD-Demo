@@ -22,6 +22,7 @@ import sg.construct.demoapp.domain.interactor.DataService;
 import sg.construct.demoapp.domain.interactor.ImageService;
 import sg.construct.demoapp.pojo.entity.ProductEntity;
 import sg.construct.demoapp.ui.base.BaseActivity;
+import sg.construct.demoapp.ui.detail.ProductDetailActivity;
 
 /**
  * Copyright (c) 2016, Posiba. All rights reserved.
@@ -81,10 +82,17 @@ public class ListProductActivity extends BaseActivity implements ListProductView
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            ProductEntity entity = mEntities.get(position);
+            final ProductEntity entity = mEntities.get(position);
             holder.text1.setText(entity.name);
             holder.text2.setText(entity.description);
             mImageService.loadImage(holder.image, entity.images.thumbnail);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProductDetailActivity.open(ListProductActivity.this, entity.id);
+                }
+            });
         }
 
         @Override

@@ -10,4 +10,8 @@ public interface BaseView {
     void showNoNetworkError();
 
     void showError(String message);
+
+    void showLoading();
+
+    void hideLoading();
 }

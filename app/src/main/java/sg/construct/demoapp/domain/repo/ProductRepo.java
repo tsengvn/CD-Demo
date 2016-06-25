@@ -23,5 +23,5 @@ public interface ProductRepo {
     Observable<ProductEntity> createProduct();
 
     @GET("product/{id}")
-    Observable<ProductEntity> getProduct(@Path("id") long id);
+    Observable<ProductEntity> getProduct(@Header("Authorization") String token, @Path("id") long id);
 }
