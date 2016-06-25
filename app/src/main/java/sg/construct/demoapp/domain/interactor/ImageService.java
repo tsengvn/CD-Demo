@@ -1,6 +1,7 @@
 package sg.construct.demoapp.domain.interactor;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -21,5 +22,9 @@ public class ImageService {
 
     public void loadImage(ImageView imageView, String url) {
         Picasso.with(mContext).load(url).fit().centerCrop().into(imageView);
+    }
+
+    public void loadImage(ImageView imageView, Uri uri) {
+        Picasso.with(mContext).load(uri).fit().centerCrop().into(imageView);
     }
 }

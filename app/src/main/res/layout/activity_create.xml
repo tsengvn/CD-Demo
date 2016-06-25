@@ -26,7 +26,6 @@
                     android:background="@color/colorPlaceHolder"
                     android:src="@drawable/ic_camera"
                     android:scaleType="centerInside"
-                    android:alpha="0.6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 

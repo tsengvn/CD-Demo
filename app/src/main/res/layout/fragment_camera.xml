@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sg.construct.demoapp.ui.widget.squarecamera.SquareCameraPreview
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cameraPreview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
