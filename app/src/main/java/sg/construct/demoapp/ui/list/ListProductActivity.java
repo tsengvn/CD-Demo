@@ -50,8 +50,8 @@ public class ListProductActivity extends BaseActivity implements ListProductView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Application.getAppComponent(this).inject(this);
-
         setContentView(R.layout.activity_list);
+        setDefaultToolbar(false);
 
         mPresenter = new ListProductPresenterImpl(this, mDataService);
     }
@@ -93,7 +93,7 @@ public class ListProductActivity extends BaseActivity implements ListProductView
             holder.text1.setText(entity.name);
             holder.text2.setText(entity.description);
             mImageService.loadImage(holder.image, entity.images.thumbnail);
-
+            holder.imageNew.setVisibility(entity.isNew ? View.VISIBLE : View.GONE);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -112,11 +112,13 @@ public class ListProductActivity extends BaseActivity implements ListProductView
         TextView text1;
         TextView text2;
         ImageView image;
+        ImageView imageNew;
         public ViewHolder(View itemView) {
             super(itemView);
             text1 = ButterKnife.findById(itemView, R.id.text1);
             text2 = ButterKnife.findById(itemView, R.id.text2);
             image = ButterKnife.findById(itemView, R.id.image);
+            imageNew = ButterKnife.findById(itemView, R.id.imageNew);
         }
     }
 }

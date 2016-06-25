@@ -5,5 +5,87 @@
               android:layout_height="match_parent">
     <include layout="@layout/view_toolbar"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorMainBg"
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <sg.construct.demoapp.ui.widget.SquareImageView
+                    android:id="@+id/image"
+                    android:background="@color/colorPlaceHolder"
+                    android:src="@drawable/ic_camera"
+                    android:scaleType="centerInside"
+                    android:alpha="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorText"
+                    android:text="@string/product_name"/>
+
+                <EditText
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_input"
+                    android:textColor="#333333"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="14sp"
+                    android:includeFontPadding="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"/>
+
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorText"
+                    android:textStyle="bold"
+                    android:text="@string/product_description"/>
+
+                <EditText
+                    android:gravity="top|left"
+                    android:layout_marginTop="12dp"
+                    android:textColor="#333333"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="14sp"
+                    android:background="@drawable/bg_input"
+                    android:lines="5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"/>
+            </LinearLayout>
+
+            <Button
+                android:text="@string/submit"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButtonBg"/>
+        </LinearLayout>
+
+
+    </ScrollView>
 </LinearLayout>

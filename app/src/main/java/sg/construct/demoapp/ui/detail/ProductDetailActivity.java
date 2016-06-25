@@ -53,6 +53,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        setDefaultToolbar(true);
+
         Application.getAppComponent(this).inject(this);
 
         mPresenter = new ProductDetailPresenterImpl(this, mDataService);

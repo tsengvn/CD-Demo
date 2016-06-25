@@ -41,8 +41,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView{
 
     }
 
-    protected void setDefaultToolbar(Toolbar toolbar, boolean allowBack) {
+    protected void setDefaultToolbar(boolean allowBack) {
+        Toolbar toolbar = ButterKnife.findById(this, R.id.toolbar);
+        if (toolbar == null) return;
+
         setSupportActionBar(toolbar);
+        setTitle("");
         if (allowBack) {
             toolbar.setNavigationIcon(R.drawable.ic_back);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {

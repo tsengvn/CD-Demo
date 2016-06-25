@@ -12,7 +12,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/colorMainBg"
         android:fillViewport="true">
 
         <LinearLayout
@@ -23,20 +23,24 @@
 
             <sg.construct.demoapp.ui.widget.SquareImageView
                 android:id="@+id/image"
+                android:background="@color/colorPlaceHolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/text1"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@android:color/black"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Title"/>
 
             <TextView
                 android:id="@+id/text2"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
