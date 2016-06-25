@@ -79,15 +79,34 @@
                     android:imeOptions="actionDone"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSubmit"
-                android:text="@string/submit"
+            <FrameLayout
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorButtonBg"/>
-        </LinearLayout>
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/btnSubmit"
+                    android:text="@string/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorButtonBg"/>
+
+                <ImageView
+                    android:id="@+id/ivSpinner"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="50dp"
+                    android:src="@drawable/ic_spinner"/>
+            </FrameLayout>
+
+        </LinearLayout>
 
     </ScrollView>
 </LinearLayout>

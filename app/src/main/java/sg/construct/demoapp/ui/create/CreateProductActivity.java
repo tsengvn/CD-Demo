@@ -1,5 +1,7 @@
 package sg.construct.demoapp.ui.create;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,12 +9,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sg.construct.demoapp.Application;
 import sg.construct.demoapp.R;
@@ -101,5 +106,31 @@ public class CreateProductActivity extends BaseActivity implements CreateProduct
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void showLoading() {
+//        super.showLoading();
+        View view = ButterKnife.findById(this, R.id.ivSpinner);
+        view.setVisibility(View.VISIBLE);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, View.ROTATION, 0, 360);
+        animator.setDuration(1000);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.start();
+
+        mDescriptionInput.setEnabled(false);
+        mTitleInput.setEnabled(false);
+        mImageView.setEnabled(false);
+    }
+
+    @Override
+    public void hideLoading() {
+        mDescriptionInput.setEnabled(true);
+        mTitleInput.setEnabled(true);
+        mImageView.setEnabled(true);
+        View view = ButterKnife.findById(this, R.id.ivSpinner);
+        view.clearAnimation();
+        view.setVisibility(View.INVISIBLE);
     }
 }
