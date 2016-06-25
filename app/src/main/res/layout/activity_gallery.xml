@@ -5,63 +5,74 @@
               android:layout_height="match_parent">
     <include layout="@layout/view_toolbar"/>
 
-    <FrameLayout
-        android:background="@color/colorMainBg"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:id="@+id/pnlCamera"
+            android:background="@color/colorMainBg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
             <FrameLayout
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:id="@+id/pnlCamera"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <sg.construct.demoapp.ui.widget.SquareImageView
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <ImageView
-                    android:id="@+id/btnCapture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_camera_big"
-                    android:layout_gravity="center|bottom"
-                    android:layout_marginBottom="12dp"/>
-            </FrameLayout>
+                android:layout_height="match_parent"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorMainBg">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorText"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/library"/>
-
-                <RelativeLayout
+                android:orientation="vertical">
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
+                    <sg.construct.demoapp.ui.widget.SquareImageView
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/btnCapture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_camera_big"
+                        android:layout_gravity="center|bottom"
+                        android:layout_marginBottom="12dp"/>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/colorMainBg">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorText"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/library"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:nestedScrollingEnabled="false"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/bg_gradient_black"/>
 
                     <Button
                         android:id="@+id/btnContinue"
@@ -73,25 +84,12 @@
                         android:layout_alignParentBottom="true"
                         android:text="@string/continue_word"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_above="@id/btnContinue"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_above="@id/btnContinue"
-                        android:background="@drawable/bg_gradient_black"/>
-                </RelativeLayout>
-
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
 
-    </FrameLayout>
+        </FrameLayout>
+    </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>
