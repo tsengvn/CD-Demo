@@ -18,6 +18,7 @@ public class ImageService {
 
     public ImageService(Context context) {
         mContext = context;
+        Picasso.with(mContext).setLoggingEnabled(true);
     }
 
     public void loadImage(ImageView imageView, String url) {
@@ -26,5 +27,9 @@ public class ImageService {
 
     public void loadImage(ImageView imageView, Uri uri) {
         Picasso.with(mContext).load(uri).fit().centerCrop().into(imageView);
+    }
+
+    public void loadThumbnail(ImageView imageView, Uri uri) {
+        Picasso.with(mContext).load(uri).resize(300, 300).centerCrop().into(imageView);
     }
 }

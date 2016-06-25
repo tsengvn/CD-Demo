@@ -1,10 +1,18 @@
 package sg.construct.demoapp.domain.interactor;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.functions.Func1;
 import sg.construct.demoapp.domain.repo.AuthRepo;
 import sg.construct.demoapp.domain.repo.ProductRepo;
@@ -72,5 +80,41 @@ public class DataService {
                 return mProductRepo.getProduct(token, id);
             }
         });
+    }
+
+    public Observable<List<Uri>> getImages(final Activity activity) {
+        return Observable.create(new Observable.OnSubscribe<List<Uri>>() {
+            @Override
+            public void call(Subscriber<? super List<Uri>> subscriber) {
+                List<Uri> results = new ArrayList<>();
+
+                String[] projection = new String[] {
+                        MediaStore.Images.Media._ID,
+                        MediaStore.Images.Media.DATA
+                };
+
+                Uri images = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+
+                Cursor cur = activity.managedQuery(images, projection, null, null, null);
+
+                Log.i("ListingImages"," query count=" + cur.getCount());
+
+                if (cur.moveToFirst()) {
+                    int dataColumn = cur.getColumnIndex(MediaStore.Images.Media.DATA);
+
+                    do {
+                        String data = cur.getString(dataColumn);
+                        results.add(Uri.fromFile(new File(data)));
+                        Log.i("ListingImages", " data=" + data);
+                    } while (cur.moveToNext());
+
+                }
+                if (!subscriber.isUnsubscribed()) {
+                    subscriber.onNext(results);
+                }
+                subscriber.onCompleted();
+            }
+        });
+
     }
 }
