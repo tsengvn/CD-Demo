@@ -16,12 +16,14 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import sg.construct.demoapp.Application;
 import sg.construct.demoapp.R;
 import sg.construct.demoapp.domain.interactor.DataService;
 import sg.construct.demoapp.domain.interactor.ImageService;
 import sg.construct.demoapp.pojo.entity.ProductEntity;
 import sg.construct.demoapp.ui.base.BaseActivity;
+import sg.construct.demoapp.ui.create.CreateProductActivity;
 import sg.construct.demoapp.ui.detail.ProductDetailActivity;
 
 /**
@@ -71,6 +73,11 @@ public class ListProductActivity extends BaseActivity implements ListProductView
         mEntities.clear();
         mEntities.addAll(entities);
         mRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.btnAdd)
+    public void openCreateProductScreen() {
+        CreateProductActivity.open(this, 0);
     }
 
     class Adapter extends RecyclerView.Adapter<ViewHolder> {
