@@ -1,5 +1,7 @@
 package sg.construct.demoapp.ui.base;
 
+import android.support.annotation.StringRes;
+
 /**
  * Copyright (c) 2016, Posiba. All rights reserved.
  *
@@ -9,7 +11,7 @@ package sg.construct.demoapp.ui.base;
 public interface BaseView {
     void showNoNetworkError();
 
-    void showError(String message);
+    void showError(@StringRes int stringRes);
 
     void showLoading();
 

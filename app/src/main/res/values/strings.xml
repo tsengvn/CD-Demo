@@ -4,4 +4,11 @@
     <string name="product_description">Product Description</string>
     <string name="submit">submit</string>
     <string name="library">LIBRARY</string>
+    <string name="error">Error</string>
+    <string name="add_photo">Please add a photo!</string>
+    <string name="add_title">Please add a product title!</string>
+    <string name="add_description">Please add a product description!</string>
+    <string name="internet_connection">Please check your internet connection!</string>
+    <string name="backend_issue">We have a problem with our backend, please try again later.</string>
+    <string name="unknown_error">There is an error occurred, please try again later.</string>
 </resources>

@@ -1,5 +1,7 @@
 package sg.construct.demoapp.ui.list;
 
+import android.support.annotation.StringRes;
+
 import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -32,6 +34,11 @@ public class ListProductPresenterImpl implements ListProductPresenter {
                     @Override
                     public void onNext(List<ProductEntity> entities) {
                         mView.onReceiveData(entities);
+                    }
+
+                    @Override
+                    public void onError(@StringRes int errorRes) {
+                        mView.showError(errorRes);
                     }
                 });
     }

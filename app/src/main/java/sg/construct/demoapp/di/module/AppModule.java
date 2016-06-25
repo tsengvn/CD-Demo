@@ -100,8 +100,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataService provideDataService(AuthRepo authRepo, ProductRepo productRepo, SharedPreferences preferences) {
-        return new DataService(authRepo, productRepo, preferences);
+    DataService provideDataService(AuthRepo authRepo, ProductRepo productRepo, SharedPreferences preferences, Context context) {
+        return new DataService(authRepo, productRepo, preferences, context);
     }
 
     @Provides

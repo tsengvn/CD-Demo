@@ -1,6 +1,9 @@
 package sg.construct.demoapp.ui.base;
 
+import android.app.ProgressDialog;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,6 +18,7 @@ import sg.construct.demoapp.R;
  * @since 6/24/16
  */
 public class BaseActivity extends AppCompatActivity implements BaseView{
+    private ProgressDialog mProgressDialog;
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
@@ -23,22 +27,32 @@ public class BaseActivity extends AppCompatActivity implements BaseView{
 
     @Override
     public void showLoading() {
-
+        hideLoading();
+        mProgressDialog = ProgressDialog.show(this, "", "Loading");
     }
 
     @Override
     public void hideLoading() {
-
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
     }
 
     @Override
     public void showNoNetworkError() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.error)
+                .setMessage(R.string.internet_connection)
+                .show();
     }
 
     @Override
-    public void showError(String message) {
-
+    public void showError(@StringRes int stringRes) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.error)
+                .setMessage(stringRes)
+                .show();
     }
 
     protected void setDefaultToolbar(boolean allowBack) {

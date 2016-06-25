@@ -1,13 +1,16 @@
 package sg.construct.demoapp.domain.interactor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +20,10 @@ import rx.functions.Func1;
 import sg.construct.demoapp.domain.repo.AuthRepo;
 import sg.construct.demoapp.domain.repo.ProductRepo;
 import sg.construct.demoapp.pojo.entity.AuthenticationEntity;
+import sg.construct.demoapp.pojo.entity.NewProductEntity;
 import sg.construct.demoapp.pojo.entity.ProductEntity;
 import sg.construct.demoapp.pojo.entity.UserEntity;
+import sg.construct.demoapp.util.ImageUtil;
 import sg.construct.demoapp.util.StringUtil;
 
 /**
@@ -31,11 +36,13 @@ public class DataService {
     private final AuthRepo mAuthRepo;
     private final ProductRepo mProductRepo;
     private final SharedPreferences mPreferences;
+    private final Context mContext;
 
-    public DataService(AuthRepo authRepo, ProductRepo productRepo, SharedPreferences preferences) {
+    public DataService(AuthRepo authRepo, ProductRepo productRepo, SharedPreferences preferences, Context context) {
         mAuthRepo = authRepo;
         mProductRepo = productRepo;
         mPreferences = preferences;
+        mContext = context;
     }
 
     public Observable<List<ProductEntity>> getListProduct() {
@@ -116,5 +123,24 @@ public class DataService {
             }
         });
 
+    }
+
+    public Observable<ProductEntity> createProduct(final Uri uri, final String title, final String description) {
+        return getToken()
+                .flatMap(new Func1<String, Observable<ProductEntity>>() {
+                    @Override
+                    public Observable<ProductEntity> call(String token) {
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
+                            String data = ImageUtil.convertBitmapToString(bitmap);
+                            bitmap.recycle();
+                            NewProductEntity entity = new NewProductEntity(title, description, data);
+                            return mProductRepo.createProduct(token, entity);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return Observable.error(new RuntimeException("Can not get the image data"));
+                    }
+                });
     }
 }

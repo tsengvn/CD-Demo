@@ -1,5 +1,7 @@
 package sg.construct.demoapp.ui.detail;
 
+import android.support.annotation.StringRes;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import sg.construct.demoapp.domain.interactor.DataService;
@@ -23,13 +25,20 @@ public class ProductDetailPresenterImpl implements ProductDetailPresenter {
 
     @Override
     public void getData(long id) {
+        mView.showLoading();
         mService.getProduct(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultSubscriber<ProductEntity>() {
                     @Override
                     public void onNext(ProductEntity entity) {
+                        mView.hideLoading();
                         mView.onReceiveData(entity);
+                    }
+
+                    @Override
+                    public void onError(@StringRes int errorRes) {
+                        mView.showError(errorRes);
                     }
                 });
     }

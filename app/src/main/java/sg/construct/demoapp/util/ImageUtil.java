@@ -1,4 +1,4 @@
-package sg.construct.demoapp.ui.widget.squarecamera;
+package sg.construct.demoapp.util;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class ImageUtility {
+public class ImageUtil {
 
     public static String convertBitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();

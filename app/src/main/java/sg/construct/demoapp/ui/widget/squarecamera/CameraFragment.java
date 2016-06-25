@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.List;
 
 import sg.construct.demoapp.R;
+import sg.construct.demoapp.util.ImageUtil;
 
 public class CameraFragment extends Fragment implements SurfaceHolder.Callback, Camera.PictureCallback {
 
@@ -393,7 +394,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     }
 
     private Uri savePicture(byte[] data, int rotation) {
-        Bitmap bitmap = ImageUtility.decodeSampledBitmapFromByte(getActivity(), data);
+        Bitmap bitmap = ImageUtil.decodeSampledBitmapFromByte(getActivity(), data);
 //        Log.d(TAG, "original bitmap width " + bitmap.getWidth() + " height " + bitmap.getHeight());
         if (rotation != 0) {
             Bitmap oldBitmap = bitmap;
@@ -407,8 +408,8 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
             oldBitmap.recycle();
         }
-        bitmap = ImageUtility.cropSquare(bitmap);
-        return ImageUtility.savePicture(getActivity(), bitmap);
+        bitmap = ImageUtil.cropSquare(bitmap);
+        return ImageUtil.savePicture(getActivity(), bitmap);
     }
 
     private int getPhotoRotation() {

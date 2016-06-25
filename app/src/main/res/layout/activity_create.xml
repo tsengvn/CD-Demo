@@ -39,6 +39,7 @@
                     android:text="@string/product_name"/>
 
                 <EditText
+                    android:id="@+id/edtTitle"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_input"
                     android:textColor="#333333"
@@ -62,6 +63,7 @@
                     android:text="@string/product_description"/>
 
                 <EditText
+                    android:id="@+id/edtDescription"
                     android:gravity="top|left"
                     android:layout_marginTop="12dp"
                     android:textColor="#333333"
@@ -78,6 +80,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btnSubmit"
                 android:text="@string/submit"
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"

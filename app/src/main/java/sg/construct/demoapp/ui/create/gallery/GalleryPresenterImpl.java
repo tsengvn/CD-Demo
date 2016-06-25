@@ -2,6 +2,7 @@ package sg.construct.demoapp.ui.create.gallery;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.support.annotation.StringRes;
 
 import java.util.List;
 
@@ -27,13 +28,20 @@ public class GalleryPresenterImpl implements GalleryPresenter {
 
     @Override
     public void loadImages(Activity activity) {
+        mGalleryView.showLoading();
         mDataService.getImages(activity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new DefaultSubscriber<List<Uri>>() {
                     @Override
                     public void onNext(List<Uri> uris) {
+                        mGalleryView.hideLoading();
                         mGalleryView.onReceiveData(uris);
+                    }
+
+                    @Override
+                    public void onError(@StringRes int errorRes) {
+                        mGalleryView.showError(errorRes);
                     }
                 });
     }
